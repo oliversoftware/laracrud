@@ -74,6 +74,12 @@ class ProductosController extends Controller
     public function edit($id)
     {
         //
+
+        $producto=Producto::findOrFail($id);
+
+        return view('productos.editar',compact('producto'));
+
+
     }
 
     /**
@@ -86,7 +92,19 @@ class ProductosController extends Controller
     public function update(Request $request, $id)
     {
         //
-        return view('productos.actualizar');
+
+        $producto=Producto::find($id);
+        $producto->nombre_articulo=$request->nombre_articulo;
+        $producto->seccion=$request->seccion;
+        $producto->precio=$request->precio;
+        $producto->fecha=$request->fecha;
+        $producto->pais_origen=$request->pais_origen;
+
+        $producto->save();
+
+        $productos = Producto::all();
+
+        return view('productos.index',compact('productos'));
     }
 
     /**
@@ -98,6 +116,13 @@ class ProductosController extends Controller
     public function destroy($id)
     {
         //
-        return view('productos.eliminar');
+
+
+        $producto=Producto::find($id)->delete();
+
+        $productos = Producto::all();
+
+        return view('productos.index',compact('productos'));
+
     }
 }

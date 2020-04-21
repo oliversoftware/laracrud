@@ -31,7 +31,7 @@
 
                 <tr>
 
-                    <td>{{$p->nombre_articulo}}</td>
+                    <td><a href="{{route('productos.edit',$p->id)}}">{{$p->nombre_articulo}}</a> </td>
                     <td>{{$p->seccion}}</td>
                     <td>{{$p->fecha}}</td>
                     <td>{{$p->precio}}</td>
