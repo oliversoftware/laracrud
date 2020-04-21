@@ -14,3 +14,12 @@
 Route::get('/', function () {
     return view('welcome');
 });
+/*
+Route::get('/inicio','ProductosController@index');
+Route::get('/crear','ProductosController@create');
+Route::get('/actualizar','ProductosController@update');
+Route::get('/mostar','ProductosController@show');
+Route::get('/eliminar','ProductosController@destroy');
+Route::get('/','ProductosController@index');
+*/
+Route::resource('/productos','ProductosController');
