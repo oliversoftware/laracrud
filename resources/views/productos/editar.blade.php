@@ -15,7 +15,12 @@
 
             <div class="col"></div>
             <div class="col">
-                <form method="post" action="/productos/{{$producto->id}}">
+
+
+
+                {{ Form::model($producto->id, ['route' => ['productos.update', $producto],'method'=>'PUT'])}}
+
+
                     <div class="form-group">
                         <label for="nombre_articulo">Nombre articulo</label>
                         <input type="text" class="form-control" id="nombre_articulo" name="nombre_articulo" value="{{$producto->nombre_articulo}}" placeholder="Nombre articulo">
@@ -46,20 +51,26 @@
 
                     {{csrf_field()}}
 
-                    <input type="hidden"  name="_method" value="PUT">
+
 
                     <button type="submit" class="btn btn-primary">Editar</button>
 
-                    <button type="reset" class="btn btn-primary">Reset</button>
 
-                    <form action="productos/{{$producto->id}}">
-                        {{csrf_field()}}
 
-                        <input type="hidden"  name="_method" value="DELETE">
-                        <button type="submit" class="btn btn-primary">Eliminar Producto</button>
 
-                    </form>
-                </form>
+                {{Form::close()}}
+
+                {{Form::reset('Borrar campos!' ,array_merge(['class' => 'btn btn-primary']))}}
+
+
+                {{ Form::open(['route' => ['productos.destroy', $producto->id], 'method'=>'DELETE']) }}
+                {{Form::submit('Eliminar' ,array_merge(['class' => 'btn btn-danger']))}}
+                {{Form::close()}}
+
+
+
+
+
             </div>
             <div class="col"></div>
 
@@ -68,7 +79,7 @@
 
     </div>
 
-    </div>
+
 @endsection
 
 @section('pie')

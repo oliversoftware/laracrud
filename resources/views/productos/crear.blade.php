@@ -26,42 +26,58 @@
 
         <div class="col"></div>
         <div class="col">
-            <form method="post" action="/productos">
-                <div class="form-group">
-                    <label for="nombre_articulo">Nombre articulo</label>
-                    <input type="text" class="form-control" id="nombre_articulo" name="nombre_articulo"  placeholder="Nombre articulo">
 
+            {{ Form::open(['url' => '/productos', 'method'=>'post','files'=> 'true']) }}
+
+
+            <div class="form-group">
+                {{ Form::label('nombre_articulo', 'Archivo') }}
+                {{ Form::file('file') }}
+            </div>
+                <div class="form-group">
+                    {{ Form::label('nombre_articulo', 'Nombre articulo') }}
+                    {{ Form::text('nombre_articulo', ' ', array_merge(['class' => 'form-control'])) }}
                 </div>
 
-                <div class="form-group">
-                    <label for="seccion">Seccion</label>
-                    <input type="text" class="form-control" id="seccion" name="seccion"  placeholder="seccion">
+            <div class="form-group">
+                {{ Form::label('seccion', 'Seccion') }}
+                {{ Form::text('seccion', ' ', array_merge(['class' => 'form-control'])) }}
+            </div>
+            <div class="form-group">
+                {{ Form::label('precio', 'precio') }}
+                {{ Form::text('precio', ' ', array_merge(['class' => 'form-control'])) }}
+            </div>
+            <div class="form-group">
+                {{ Form::label('fecha', 'fecha') }}
+                {{ Form::text('fecha', ' ', array_merge(['class' => 'form-control'])) }}
+            </div>
 
-                </div>
+            <div class="form-group">
+                {{ Form::label('pais_origen', 'Pais origen') }}
+                {{ Form::text('pais_origen', ' ', array_merge(['class' => 'form-control'])) }}
+            </div>
 
-                <div class="form-group">
-                    <label for="precio">precio</label>
-                    <input type="text" class="form-control" id="precio" name="precio"  placeholder="precio">
-
-                </div>
-                <div class="form-group">
-                    <label for="fecha">fecha</label>
-                    <input type="text" class="form-control" id="fecha" name="fecha"  placeholder="fecha">
-
-                </div>
-                <div class="form-group">
-                    <label for="pais_origen">Pais origen</label>
-                    <input type="text" class="form-control" id="pais_origen" name="pais_origen"  placeholder="Pais origen">
-
-                </div>
 
                 {{csrf_field()}}
 
-                <button type="submit" class="btn btn-primary">Enviar</button>
-                <button type="reset" class="btn btn-primary">Reset</button>
-            </form>
+            {{Form::submit('Enviar!' ,array_merge(['class' => 'btn btn-primary']))}}
+
+            {{Form::reset('Borrar campos!' ,array_merge(['class' => 'btn btn-primary']))}}
+            {!! Form::close() !!}
         </div>
-        <div class="col"></div>
+        <div class="col">
+
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
+             </div>
 
 
     </div>

@@ -13,6 +13,7 @@ class Producto extends Model
         "seccion",
         "precio",
         "fecha",
+        "ruta",
         "pais_origen"
     ];
 }

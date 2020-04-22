@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CreateProductosRequest;
 use App\Producto;
 use Illuminate\Http\Request;
 
@@ -38,18 +39,50 @@ class ProductosController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateProductosRequest $request)
     {
-       $producto=new Producto();
-       $producto->nombre_articulo=$request->nombre_articulo;
-       $producto->seccion=$request->seccion;
-       $producto->precio=$request->precio;
-       $producto->fecha=$request->fecha;
-       $producto->pais_origen=$request->pais_origen;
 
-       $producto->save();
 
-       return 'articulo creado';
+      /*  $validatedData = $request->validate([
+            'seccion' => 'required',
+            'nombre_articulo' => 'required',
+            'pais_origen' => 'required'
+        ]);
+
+      */
+
+
+
+/*
+        $producto=new Producto();
+        $producto->nombre_articulo=$request->nombre_articulo;
+        $producto->seccion=$request->seccion;
+        $producto->precio=$request->precio;
+        $producto->fecha=$request->fecha;
+        $producto->pais_origen=$request->pais_origen;
+
+        $producto->save();
+
+*/
+        //VALIDACIÓN DE CAMPOS
+
+
+        $entrada=$request->all();
+
+
+        if ($archivo=$request->file('file')){
+            $nombre=$archivo->getClientOriginalName();
+            $archivo->move('images',$nombre);
+            $entrada['ruta']=$nombre;
+
+        }
+
+        Producto::create($entrada);
+
+
+
+        return redirect('productos');
+
     }
 
     /**
